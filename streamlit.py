@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
+import seaborn as sns
 
 # Load the dataset from the provided link
 data = pd.read_csv("mobile_price/train.csv")
@@ -50,12 +51,12 @@ clusters = kmeans.fit_predict(X_scaled)
 
 # Visualize the clusters using PCA (you can choose different visualization techniques)
 st.subheader("Clustering of Mobile Devices (PCA)")
-plt.figure(figsize=(10, 8))
-plt.scatter(X_pca[:, 0], X_pca[:, 1], c=clusters, cmap='viridis')
-plt.title('Clustering of Mobile Devices (PCA)')
-plt.xlabel('Principal Component 1')
-plt.ylabel('Principal Component 2')
-st.pyplot()
+plot = plt.subplot(figsize=(10, 8))
+sns.scatterplot(X_pca[:, 0], X_pca[:, 1], c=clusters, cmap='viridis')
+plot.title('Clustering of Mobile Devices (PCA)')
+plot.xlabel('Principal Component 1')
+plot.ylabel('Principal Component 2')
+st.pyplot(plot)
 
 # Explore the clusters and their characteristics
 cluster_centers = pd.DataFrame(scaler.inverse_transform(kmeans.cluster_centers_), columns=X.columns)
